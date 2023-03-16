@@ -17,7 +17,7 @@ long long get_pisano_period(long long m)
         current = current + old_prev;
         current = current % m;
 
-        if ((current % m == 0) && ((current + previous) % m == 1))
+        if ((current == 0) && ((current + previous) == 1))
             return pasino_period;
 
         pasino_period++;
