@@ -1,37 +1,39 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <algorithm>
 
-long long max_dot_product(std::vector<int> a, std::vector<int> b)
+bool sort_to_make_largest_number(const std::string &pNum1, const std::string &pNum2)
 {
+  std::string string1 = pNum1 + pNum2;
+  std::string string2 = pNum2 + pNum1;
+  int num1 = std::stoi(string1);
+  int num2 = std::stoi(string2);
 
-  long long result = 0;
+  return (num1 > num2) ? true : false;
+}
 
-  std::sort(a.begin(), a.end(), std::greater<int>());
-  std::sort(b.begin(), b.end(), std::greater<int>());
+std::string largest_number(std::vector<std::string> pDigitsStringArr)
+{
+  std::string greatest_num;
 
-  for (size_t i = 0; i < a.size(); i++)
-  {
-    result += ((long long)a[i]) * b[i];
-  }
+  // Sort the array
+  std::sort(pDigitsStringArr.begin(), pDigitsStringArr.end(), sort_to_make_largest_number);
 
-  return result;
+  for (const auto &str : pDigitsStringArr)
+    greatest_num += str;
+
+  return greatest_num;
 }
 
 int main()
 {
-  size_t n;
+  int n;
   std::cin >> n;
-  
-  std::vector<int> a(n), b(n);
-  
-  for (size_t i = 0; i < n; i++) {
+  std::vector<std::string> a(n);
+  for (size_t i = 0; i < a.size(); i++)
+  {
     std::cin >> a[i];
   }
-  
-  for (size_t i = 0; i < n; i++) {
-    std::cin >> b[i];
-  }
-  
-  std::cout << max_dot_product(a, b) << std::endl;
+  std::cout << largest_number(a);
 }
